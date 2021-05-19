@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+
+html {
+    height: 100%;
+    background-image: linear-gradient(forestgreen, seagreen);
+}
+
+h1 {
+    color: white;
+    font-family: 'Bubblegum Sans', cursive;
+    font-size: 45px;
+    text-align: center;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px 100px;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.grid-item {
+    border: 1px solid white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+img {
+    object-fit: contain;
+    width: 100%;
+    max-height: 100%;
+}
+
+#score {
+    color: white;
+    font-family: 'Bubblegum Sans', cursive;
+    font-size: 32px;
+    padding-top: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+#results {
+    color: white;
+    font-family: 'Bubblegum Sans', cursive;
+    font-size: 60px;
+    text-align: center;
+    padding-top: 20px;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+#totalMolesWhacked {
+    color: white;
+    font-family: 'Bubblegum Sans', cursive;
+    font-size: 60px;
+    text-align: center;
+    padding-bottom: 20px;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+#gameOverImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20%;
+}
+
+#start-button {
+    background-color: peru;
+    color: white;
+    margin: 0 auto;
+    display: block;
+    font-family: 'Bubblegum Sans', cursive;
+    font-size: 30px;
+}

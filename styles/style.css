@@ -28,7 +28,7 @@ h1 {
 }
 
 img {
-    object-fit: contain;
+    object-fit: contain; /* Specify how an <img> or <video> should be resized to fit its container */
     width: 100%;
     max-height: 100%;
 }

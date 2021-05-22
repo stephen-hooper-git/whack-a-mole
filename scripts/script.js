@@ -6,9 +6,9 @@ const score = document.getElementById('score');
 
 const gridItems = { mole: '<img src="./images/mole.png">', blood: '<img src="./images/blood.png">' }
 
+let moleId = document.getElementById('0');
 let molesWhacked = 0;
 let numberOfRounds = 10;
-let currentMole = '0';
 let results = [];
 let startGame;
 let isClicked;
@@ -23,11 +23,12 @@ let t1;
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
 // Arrow functions
-const generateRandomNumber = number => Math.floor(Math.random() * number);
-const displayGridItem = (elementId, gridItem) => document.getElementById(elementId).innerHTML = gridItem;
-const clearGridItem = elementId => document.getElementById(elementId).innerHTML = '';
+const randomNumber = number => Math.floor(Math.random() * number);
+const randomMole = () => moleId = document.getElementById(randomNumber(numberOfMoles).toString());
+const showGridItem = (elementId, gridItem) => elementId.innerHTML = gridItem;
+const clearContent = elementId => elementId.innerHTML = '';
 
-function beginGame() {
+function gameStart() {
     document.body.removeChild(startButton);
     startGame = setInterval(popUp, 2000)
 }
@@ -35,32 +36,28 @@ function beginGame() {
 function popUp() {
     if (isClicked === false) {updateScore()}
     // Remove previous mole
-    document.getElementById(currentMole).removeEventListener('click', eventHandlerFunction)
-    clearGridItem(currentMole)
+    moleId.removeEventListener('click', eventHandlerFunction)
+    clearContent(moleId)
     // End game when no rounds remaining
     if (numberOfRounds === 0) {
-        endGame()
+        gameOver()
     }
-    // Generate random mole
-    let moleHole = generateRandomNumber(numberOfMoles).toString();
-    currentMole = moleHole
+    randomMole() // Random grid item for mole
     isClicked = false;
     if (numberOfRounds > 0) {
-        // Display random mole and create event listener
-        displayGridItem(moleHole, gridItems.mole)
-        document.getElementById(moleHole).addEventListener('click', eventHandlerFunction);
+        showGridItem(moleId, gridItems.mole) // Display mole
+        moleId.addEventListener('click', eventHandlerFunction); // Create event listener
     }
     t0 = performance.now(); // Time mole displayed
     numberOfRounds-- // Decrement number of rounds
 }
 
 function eventHandlerFunction() {
-    // Remove event listener
-    document.getElementById(currentMole).removeEventListener('click', eventHandlerFunction)
+    moleId.removeEventListener('click', eventHandlerFunction) // Remove event listener
     isClicked = true;
     t1 = performance.now(); // Time mole removed
-    clearGridItem(currentMole) // Remove mole
-    displayGridItem(currentMole, gridItems.blood) // Display whacked mole
+    clearContent(moleId) // Remove mole
+    showGridItem(moleId, gridItems.blood) // Display whacked mole
     updateScore()
 }
 
@@ -78,7 +75,7 @@ function updateScore() {
     }
 }
 
-function endGame() {
+function gameOver() {
 
     clearInterval(startGame);
 

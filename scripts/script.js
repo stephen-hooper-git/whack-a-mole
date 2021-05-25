@@ -3,6 +3,7 @@
 const moleGrid = document.getElementById('grid-container');
 const startButton = document.getElementById('start-button');
 const score = document.getElementById('score');
+const finalScores = document.getElementById('final-scores');
 
 const gridItems = { mole: '<img src="./images/mole.png">', blood: '<img src="./images/blood.png">' }
 
@@ -25,11 +26,12 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
 // Arrow functions
 const randomNumber = number => Math.floor(Math.random() * number);
 const randomMole = () => moleId = document.getElementById(randomNumber(numberOfMoles).toString());
-const showGridItem = (elementId, gridItem) => elementId.innerHTML = gridItem;
+const setInnerHTML = (elementId, content) => elementId.innerHTML = content;
 const clearContent = elementId => elementId.innerHTML = '';
 
 function gameStart() {
-    document.body.removeChild(startButton);
+    startButton.style.visibility = 'hidden';
+    clearContent(score)
     startGame = setInterval(popUp, 2000)
 }
 
@@ -45,7 +47,7 @@ function popUp() {
     randomMole() // Random grid item for mole
     isClicked = false;
     if (numberOfRounds > 0) {
-        showGridItem(moleId, gridItems.mole) // Display mole
+        setInnerHTML(moleId, gridItems.mole) // Display mole
         moleId.addEventListener('click', eventHandlerFunction); // Create event listener
     }
     t0 = performance.now(); // Time mole displayed
@@ -57,7 +59,7 @@ function eventHandlerFunction() {
     isClicked = true;
     t1 = performance.now(); // Time mole removed
     clearContent(moleId) // Remove mole
-    showGridItem(moleId, gridItems.blood) // Display whacked mole
+    setInnerHTML(moleId, gridItems.blood) // Display whacked mole
     updateScore()
 }
 
@@ -85,9 +87,6 @@ function gameOver() {
     console.log(Math.min(...results))
     console.log(Math.max(...results))
 
-    document.body.removeChild(score);
-    document.body.removeChild(moleGrid);
-
     let totalMolesWhacked = document.createElement('div');
     totalMolesWhacked.id = 'totalMolesWhacked'
     totalMolesWhacked.innerHTML = `You whacked ${molesWhacked} moles`;
@@ -100,7 +99,36 @@ function gameOver() {
     displayResults.id = 'results'
     displayResults.innerHTML = `Final Score - ${results.reduce(reducer)} milliseconds`;
 
-    document.body.appendChild(totalMolesWhacked);
-    document.body.appendChild(gameOverImage);
-    document.body.appendChild(displayResults);
+    let continueButton = document.createElement('button');
+    continueButton.id = 'continue'
+    continueButton.innerHTML = `Continue`;
+
+    continueButton.setAttribute('onclick', 'continueGame()');
+
+    finalScores.appendChild(totalMolesWhacked);
+    finalScores.appendChild(gameOverImage);
+    finalScores.appendChild(displayResults);
+    finalScores.appendChild(continueButton);
+
+    finalScores.style.visibility = 'visible';
+
+}
+
+function continueGame() {
+
+    clearContent(finalScores)
+
+    moleId = document.getElementById('0');
+    molesWhacked = 0;
+    numberOfRounds = 10;
+    results = [];
+    startGame;
+    isClicked = true;
+
+    setInnerHTML(score, 'Click start to whack those pesky moles!')
+
+    finalScores.style.visibility = 'hidden';
+    
+    startButton.style.visibility = 'visible';
+
 }

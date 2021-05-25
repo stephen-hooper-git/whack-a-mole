@@ -8,7 +8,7 @@ html {
 h1 {
     color: white;
     font-family: 'Bubblegum Sans', cursive;
-    font-size: 45px;
+    font-size: 35px;
     text-align: center;
     text-shadow: 2px 2px 4px #000000;
 }
@@ -37,7 +37,7 @@ img {
     color: white;
     font-family: 'Bubblegum Sans', cursive;
     font-size: 32px;
-    padding-top: 20px;
+    padding-bottom: 10px;
     text-align: center;
     text-shadow: 2px 2px 4px #000000;
 }
@@ -45,9 +45,10 @@ img {
 #results {
     color: white;
     font-family: 'Bubblegum Sans', cursive;
-    font-size: 60px;
+    font-size: 50px;
     text-align: center;
     padding-top: 20px;
+    padding-bottom: 20px;
     text-shadow: 2px 2px 4px #000000;
 }
 
@@ -56,6 +57,7 @@ img {
     font-family: 'Bubblegum Sans', cursive;
     font-size: 60px;
     text-align: center;
+    padding-top: 20px;
     padding-bottom: 20px;
     text-shadow: 2px 2px 4px #000000;
 }
@@ -64,11 +66,33 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 20%;
+    width: 25%;
 }
 
 #start-button {
     background-color: peru;
+    color: white;
+    margin: 0 auto;
+    display: block;
+    font-family: 'Bubblegum Sans', cursive;
+    font-size: 30px;
+}
+
+/* Centered final scores container */
+#final-scores {
+    position: absolute;
+    height: 100%;
+    background-color: peru;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    visibility: hidden;
+}
+
+#continue {
+    background-color: black;
     color: white;
     margin: 0 auto;
     display: block;

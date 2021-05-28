@@ -24,12 +24,6 @@ const numberOfMoles = 18;
 let t0;
 let t1;
 
-// Arrow functions
-const randomNumber = number => Math.floor(Math.random() * number);
-const randomMole = () => moleId = document.getElementById(randomNumber(numberOfMoles).toString());
-const setInnerHTML = (elementId, content) => elementId.innerHTML = content;
-const clearContent = elementId => elementId.innerHTML = '';
-
 // Reducer function for array reduce() method
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
@@ -39,6 +33,24 @@ const arrAvg = arr => arr.reduce(reducer) / arr.length // Return the average of 
 const arrMin = arr => Math.min(...arr) // Return the minimum value in an array using spread syntax (...)
 const arrMax = arr => Math.max(...arr) // Return the maximum value in an array using spread syntax (...)
 
+const randomNumber = number => Math.floor(Math.random() * number); // Generate random number
+
+// Arrow functions
+const randomGridId = () => moleId = document.getElementById(randomNumber(numberOfMoles).toString());
+const setInnerHTML = (elementId, content) => elementId.innerHTML = content;
+const clearContent = elementId => elementId.innerHTML = '';
+
+function displayMole() {
+    setInnerHTML(moleId, gridItems.mole) // Display mole
+    moleId.addEventListener('click', eventHandlerFunction); // Create event listener
+    t0 = performance.now(); // Time mole displayed
+}
+
+function removeMole() {
+    moleId.removeEventListener('click', eventHandlerFunction) // Remove previous mole event listener
+    clearContent(moleId) // Remove previous mole image
+}
+
 function gameStart() {
     startButton.style.visibility = 'hidden';
     clearContent(score)
@@ -47,30 +59,18 @@ function gameStart() {
 
 function popUp() {
     if (isClicked === false) {updateScore()}
-    // Remove previous mole
-    moleId.removeEventListener('click', eventHandlerFunction)
-    clearContent(moleId)
-    // End game when no rounds remaining
-    if (numberOfRounds === 0) {
-        gameOver()
-    }
-    randomMole() // Random grid item for mole
+    removeMole()
+    if (numberOfRounds === 0) {gameOver()} // End game when no rounds remaining
+    randomGridId() // Random grid id for mole
     isClicked = false;
-    if (numberOfRounds > 0) {
-        setInnerHTML(moleId, gridItems.mole) // Display mole
-        moleId.addEventListener('click', eventHandlerFunction); // Create event listener
-    }
-    t0 = performance.now(); // Time mole displayed
-    console.log(t0)
+    if (numberOfRounds > 0) {displayMole()}
     numberOfRounds-- // Decrement number of rounds
 }
 
 function eventHandlerFunction() {
-    moleId.removeEventListener('click', eventHandlerFunction) // Remove event listener
+    removeMole()
     isClicked = true;
     t1 = performance.now(); // Time mole removed
-    console.log(t1)
-    clearContent(moleId) // Remove mole
     setInnerHTML(moleId, gridItems.blood) // Display whacked mole
     updateScore()
 }
@@ -99,21 +99,13 @@ function gameOver() {
 
     console.log(results)
 
-    console.log(`Min - ${arrMin(results)}`)
-    console.log(`Max - ${arrMax(results)}`)
-    console.log(`Sum - ${arrSum(results)}`)
-    console.log(`Avg - ${arrAvg(results)}`)
+    console.log(arrSum(results))
+    console.log(arrAvg(results))
+    console.log(arrMin(results))
+    console.log(arrMax(results))
 
-    if (results.reduce(reducer) < bestTime) {
-        bestTime = results.reduce(reducer)
-    }
-
-    if (Math.min(...results) < bestMole) {
-        bestMole = Math.min(...results)
-    }
-
-    console.log(bestTime)
-    console.log(bestMole)
+    if (arrSum(results) < bestTime) {bestTime = arrSum(results)} // Check for new best time
+    if (arrMin(results) < bestMole) {bestMole = arrMin(results)} // Check for new best mole
 
     let totalMolesWhacked = document.createElement('div');
     totalMolesWhacked.id = 'totalMolesWhacked'

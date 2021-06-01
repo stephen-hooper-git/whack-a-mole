@@ -5,7 +5,12 @@ const startButton = document.getElementById('start-button');
 const score = document.getElementById('score');
 const hiScoreTime = document.getElementById('hi-score-time');
 const hiScoreMole = document.getElementById('hi-score-mole');
+
 const finalScores = document.getElementById('final-scores');
+const totalMolesWhacked = document.getElementById('totalMolesWhacked');
+const gameOverImage = document.getElementById('gameOverImage');
+const displayResults = document.getElementById('results');
+const continueButton = document.getElementById('continue');
 
 const gridItems = { mole: '<img src="./images/mole.png">', blood: '<img src="./images/blood.png">' }
 
@@ -107,28 +112,10 @@ function gameOver() {
     if (arrSum(results) < bestTime) {bestTime = arrSum(results)} // Check for new best time
     if (arrMin(results) < bestMole) {bestMole = arrMin(results)} // Check for new best mole
 
-    let totalMolesWhacked = document.createElement('div');
-    totalMolesWhacked.id = 'totalMolesWhacked'
     totalMolesWhacked.innerHTML = `You whacked ${molesWhacked} moles`;
-
-    let gameOverImage = document.createElement('div');
-    gameOverImage.id = 'gameOverImage'
     gameOverImage.innerHTML = '<img src="./images/grave.png">';
-
-    let displayResults = document.createElement('div');
-    displayResults.id = 'results'
     displayResults.innerHTML = `Final Score - ${results.reduce(reducer)} milliseconds`;
-
-    let continueButton = document.createElement('button');
-    continueButton.id = 'continue'
     continueButton.innerHTML = `Continue`;
-
-    continueButton.setAttribute('onclick', 'continueGame()');
-
-    finalScores.appendChild(totalMolesWhacked);
-    finalScores.appendChild(gameOverImage);
-    finalScores.appendChild(displayResults);
-    finalScores.appendChild(continueButton);
 
     finalScores.style.visibility = 'visible';
 
@@ -139,7 +126,7 @@ function gameOver() {
 
 function continueGame() {
 
-    clearContent(finalScores)
+    //clearContent(finalScores)
 
     moleId = document.getElementById('0');
     molesWhacked = 0;
